@@ -93,7 +93,7 @@ int main (void) {
     i = 0; 
     while (i < 24) {
         j = 0; 
-        while ((j / sub_unit_j) < 60) {
+        while (j < 60) {
             k = 0;
             while (k < 1) {
                 f_putchar((( i < 10 ) ? '0' : '\0'));
@@ -105,12 +105,9 @@ int main (void) {
                 
                 k += sub_unit_k;
             }
+            j += 60 / sub_unit_j;
         }
-        f_putnbr( 60 / sub_unit_j );
-        f_putchar('\n');
-        j += 60 / sub_unit_j;
-        
+        i += 1;
     }
-    i += 1;
     return (0); 
 }
