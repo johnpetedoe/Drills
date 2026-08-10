@@ -47,53 +47,35 @@ void f_putnbr (long long n) {
     } 
 }
 
-/*
-0. Main func
-1. Alloc Tickets, recruitment
-    0. Update prototypes
-        0. Knights
-        1. Engineers
-        2. Other stem
-        3. non-stem
-        4. hypocrites
-        5. future hypocrites
-        6. polymorphic abstractions
-    
-    1. Selection/containment of demon pocesses:
-        1. I vs ~I, 
-        2. P vs ~P,
-    */
-
-    /*
-        00. user executes logistic algorithm
-        01. change in environmental variables may necessitate change in path
-        02. user may not have access to device to compute change in path
-        03. this program is meant to enumerate a number of possible schedules depending on conditions. 
-        04. the user may have access to limited cognitive resources
-        05. If the user is forced to make a decision, they may select from one of the pre-computed possibilities. 
-    */
-
-// This program's code is sloppy and not at all dry because something else is using my engineer, I'm currently translating the work of my logician into C without regard for SWE best practices I've observed for most of my education and my career.
 
 int main (void) { 
     int i;
     int j;
     int k;
-    //int n;
-    //int arr;
     int sub_unit_j;
     int sub_unit_k;
 
-    //arr = (char*)malloc(sizeof(char*) * n + 1);
-    //arr[n] = NULL;
+    // Modularize as function
+        // paramatarize variables 
+    int hour;
+    int base_unit;
+    int no_base_unit;
+    int interval;
+    int start;
 
     sub_unit_j = 4; 
     sub_unit_k = 1;
 
-    i = 0; 
-    while (i < 24) {
+    hour = 60;
+    base_unit = hour;
+    no_base_unit = 24;
+    start    = 10;
+    interval = base_unit / sub_unit_j;
+
+    i = start; 
+    while (i < no_base_unit) {
         j = 0; 
-        while (j < 60) {
+        while (j < base_unit) {
             k = 0;
             while (k < 1) {
                 f_putchar((( i < 10 ) ? '0' : '\0'));
@@ -104,9 +86,10 @@ int main (void) {
                 f_putchar('\n');
                 
                 k += sub_unit_k;
-            }
-            j += 60 / sub_unit_j;
+            }            
+            j += interval;
         }
+        f_putchar('\n'); // paramatarize this format or seperate format from algo
         i += 1;
     }
     return (0); 
