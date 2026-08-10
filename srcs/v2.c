@@ -79,12 +79,13 @@ int main (void) {
     int i;
     int j;
     int k;
-    int arr;
+    //int n;
+    //int arr;
     int sub_unit_j;
     int sub_unit_k;
 
-    arr = (char*)malloc(sizeof(char*) * n + 1);
-    arr[n] = NULL;
+    //arr = (char*)malloc(sizeof(char*) * n + 1);
+    //arr[n] = NULL;
 
     sub_unit_j = 4; 
     sub_unit_k = 1;
@@ -95,17 +96,21 @@ int main (void) {
         while ((j / sub_unit_j) < 60) {
             k = 0;
             while (k < 1) {
-                f_putchar((( i < 10 ) ? '0' : ''));
+                f_putchar((( i < 10 ) ? '0' : '\0'));
                 f_putnbr(i);
                 f_putchar(':');
-                f_putchar((( j < 10 ) ? '0' : ''));
-                f_putchar(j);
-
+                f_putchar((( j < 10 ) ? '0' : '\0'));
+                f_putnbr(j);
+                f_putchar('\n');
+                
                 k += sub_unit_k;
             }
         }
+        f_putnbr( 60 / sub_unit_j );
+        f_putchar('\n');
         j += 60 / sub_unit_j;
+        
     }
-    i+= 1;
+    i += 1;
     return (0); 
 }
