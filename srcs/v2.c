@@ -62,6 +62,7 @@ int main (void) {
     int no_base_unit;
     int interval;
     int start;
+    int cycle_length;
 
     sub_unit_j = 4; 
     sub_unit_k = 1;
@@ -69,17 +70,18 @@ int main (void) {
     hour = 60;
     base_unit = hour;
     no_base_unit = 24;
+    cycle_length = 24;
     start    = 10;
     interval = base_unit / sub_unit_j;
 
     i = start; 
-    while (i < no_base_unit) {
+    while (i < start + no_base_unit) {
         j = 0; 
         while (j < base_unit) {
             k = 0;
             while (k < 1) {
-                f_putchar((( i < 10 ) ? '0' : '\0'));
-                f_putnbr(i);
+                f_putchar((( i % cycle_length < 10 ) ? '0' : '\0'));
+                f_putnbr(i % cycle_length);
                 f_putchar(':');
                 f_putchar((( j < 10 ) ? '0' : '\0'));
                 f_putnbr(j);
