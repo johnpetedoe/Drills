@@ -87,14 +87,14 @@ char *f_itoa (int n) {
 void format_time (int t, int interval) {
     int time;
     
-    time = t / interval;
+    time = t / interval % 24;
     
     if (time < 10) {
         f_putchar('0');
     }
 
     f_putnbr ( time );
-    f_putstr ( " : ");
+    f_putchar ( ':');
 
     if (t % interval < 10) {
         f_putchar('0');
@@ -103,6 +103,8 @@ void format_time (int t, int interval) {
     f_putnbr ( t % interval );
 
     f_putstr ( f_itoa(t / interval) );
+
+    
 }
 
 int main (int argc, char **argv) {
@@ -115,19 +117,43 @@ int main (int argc, char **argv) {
     int i;
     int n;
     int interval;
+    int lb_close;
+    int hour;
+    char *labels[5] = { "AC", "FM", "LB", "MS"};
 
     interval = 60;
+    lb_close = 18;
     i = 0;
-    n = 12 * interval;
+    n = 48 * interval;
+
     
-    while (i < n) {
+    while (i < n) 
+    {
         format_time(i, interval);
-        
-        if (((i / interval) <= 8) && ((i / interval) > 6)) {
-            f_putstr("\tAC");
+        hour = i / interval % 24;
+
+        f_putchar('\t');
+        if ((hour <= 7) && (hour > 6)) 
+        {
+            f_putstr(labels[0]);
+            f_putchar(' ');
+            f_putstr(labels[0]);
+        } 
+        else if ((hour < 9) && (hour > 7)) 
+        {
+            f_putstr(labels[0]);
+            f_putchar(' ');
+            f_putstr(labels[2]);
+        } 
+        else if (((hour >= 9) && (hour < lb_close))) 
+        {
+            f_putstr(labels[2]);
+            f_putchar(' ');
+            f_putstr(labels[2]);
         }
         f_putchar('\n');
         i++;
+        
     }
 
     return (0);
