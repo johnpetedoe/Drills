@@ -1,5 +1,6 @@
 # Functions
 ## LIST
+
 | Function                                                   | Assertions / contract                                                                                                                      |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | `ft_lstsethead(t_list *elem)`                              | `elem != NULL` → returns a pointer to the head-pointer associated with `elem`; `elem == NULL` → behavior depends on implementation.        |
