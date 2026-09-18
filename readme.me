@@ -1,0 +1,130 @@
+# Functions
+## LIST
+| Function                                                   | Assertions / contract                                                                                                                      |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ft_lstsethead(t_list *elem)`                              | `elem != NULL` → returns a pointer to the head-pointer associated with `elem`; `elem == NULL` → behavior depends on implementation.        |
+| `ft_two_d_free(void **array)`                              | If `array != NULL`, every allocated element and then the array itself are freed.                                                           |
+| `ft_lstnew(const void *content, size_t content_size)`      | Returns a newly allocated node; `result != NULL` on successful allocation; `result->content_size == content_size`; `result->next == NULL`. |
+| `ft_lstiter(t_list *lst, void (*f)(t_list *elem))`         | If `lst != NULL && f != NULL`, `f` is called exactly once for each node.                                                                   |
+| `ft_lstdel(t_list **alst, void (*del)(void *, size_t))`    | `alst != NULL && del != NULL` → all nodes and their contents are deleted; `*alst == NULL` afterward.                                       |
+| `ft_lstdelone(t_list **alst, void (*del)(void *, size_t))` | `alst != NULL && *alst != NULL && del != NULL` → first node is deleted and list head is updated.                                           |
+| `ft_lstadd(t_list **alst, t_list *new)`                    | `alst != NULL && new != NULL` → `new` becomes the first node; `new->next` points to the previous head.                                     |
+| `ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))`       | `lst != NULL && f != NULL` → returns a newly allocated mapped list; original list remains unchanged.                                       |
+| `ft_lstsort(...)`                                          | `begin` identifies the list to sort; `cmp != NULL`; `len >= 0`; list ordering after completion satisfies `cmp`'s ordering relation.        |
+| `ft_lstforeach(...)`                                       | `f != NULL`; visits each of the relevant `len` elements and invokes `f` with the supplied auxiliary data.                                  |
+
+## Character
+| Function                  | Assertions / contract                                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `ft_is_whitespace(int c)` | Returns non-zero iff `c` represents whitespace according to the implementation's definition; otherwise returns `0`. |
+| `ft_isalnum(int c)`       | Returns non-zero iff `c` is an ASCII alphabetic or decimal digit; otherwise `0`.                                    |
+| `ft_isalpha(int c)`       | Returns non-zero iff `c` is an ASCII letter; otherwise `0`.                                                         |
+| `ft_isascii(int c)`       | Returns non-zero iff `0 <= c <= 127`; otherwise `0`.                                                                |
+| `ft_isdigit(int c)`       | Returns non-zero iff `'0' <= c <= '9'`; otherwise `0`.                                                              |
+| `ft_isprint(int c)`       | Returns non-zero iff `32 <= c <= 126`; otherwise `0`.                                                               |
+| `ft_tolower(int c)`       | Alphabetic uppercase ASCII character is converted to lowercase; other values are unchanged.                         |
+| `ft_toupper(int c)`       | Alphabetic lowercase ASCII character is converted to uppercase; other values are unchanged.                         |
+
+## String
+| Function                                                   | Assertions / contract                                                                                                                                       |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ft_strcat(char *s1, const char *s2)`                      | `s1` and `s2` point to valid NUL-terminated strings; `s1` has enough space for both strings + terminating NUL; returns `s1`; result is `old_s1 + old_s2`.   |
+| `ft_strcpy(char *dst, const char *src)`                    | `dst` has enough space; `src` is NUL-terminated; regions do not improperly overlap; returns `dst`; result equals `src`.                                     |
+| `ft_strlen(const char *str)`                               | `str != NULL` and points to a NUL-terminated string; returns number of characters before `'\0'`.                                                            |
+| `ft_strncat(char *s1, const char *s2, size_t n)`           | `s1`/`s2` valid strings; destination has enough capacity; appends at most `n` characters and always NUL-terminates.                                         |
+| `ft_strncpy(char *dst, const char *src, size_t len)`       | `dst` has at least `len` bytes; `src` is valid; copies at most `len` bytes and pads with NULs if `src` is shorter.                                          |
+| `ft_strstr(const char *big, const char *little)`           | `big` and `little` are valid NUL-terminated strings; returns pointer to first occurrence of `little`, or `NULL`; empty `little` returns `big`.              |
+| `ft_strnstr(const char *big, const char *sm, size_t len)`  | Valid strings; searches only within first `len` bytes of `big`; returns first match or `NULL`.                                                              |
+| `ft_strsplit(const char *s, char c)`                       | `s != NULL`; returns newly allocated NULL-terminated array of strings, or `NULL` on allocation failure; delimiter `c` is not included in resulting strings. |
+| `ft_strdup(const char *str)`                               | `str != NULL`; returns newly allocated copy including terminating NUL, or `NULL` on allocation failure.                                                     |
+| `ft_strchr(const char *s, int c)`                          | `s != NULL`; returns pointer to first occurrence of `(char)c`, or `NULL`; searching for `'\0'` returns pointer to the terminator.                           |
+| `ft_strrchr(const char *s, int c)`                         | `s != NULL`; returns pointer to last occurrence of `(char)c`, or `NULL`; searching for `'\0'` returns terminator.                                           |
+| `ft_strcmp(const char *s1, const char *s2)`                | `s1` and `s2` are valid NUL-terminated strings; returns `< 0`, `0`, or `> 0` according to lexicographical ordering.                                         |
+| `ft_strncmp(const char *s1, const char *s2, size_t n)`     | Valid strings; compares at most `n` characters; returns `< 0`, `0`, or `> 0`.                                                                               |
+| `ft_strequ(const char *s1, const char *s2)`                | Valid strings; returns `1` iff both strings are identical, otherwise `0`.                                                                                   |
+| `ft_strnequ(const char *s1, const char *s2, size_t n)`     | Valid strings; returns `1` iff the first `n` characters are equal, otherwise `0`.                                                                           |
+| `ft_strsub(const char *s, unsigned int start, size_t len)` | `s != NULL`; `start` is within/at the end of the string; returns newly allocated substring of length `len`, or `NULL` on failure.                           |
+| `ft_strjoin(const char *s1, const char *s2)`               | `s1 != NULL && s2 != NULL`; returns newly allocated concatenation, or `NULL` on allocation failure.                                                         |
+| `ft_strtrim(const char *s)`                                | `s != NULL`; returns newly allocated copy with leading/trailing whitespace removed, or `NULL` on failure.                                                   |
+| `ft_strmap(const char *s, char (*f)(char))`                | `s != NULL && f != NULL`; returns newly allocated string where `f` has been applied to every character.                                                     |
+| `ft_strmapi(const char *s, char (*f)(unsigned int, char))` | `s != NULL && f != NULL`; returns newly allocated string where `f(index, character)` is applied to every character.                                         |
+| `ft_striter(char *s, void (*f)(char *))`                   | `s != NULL && f != NULL`; applies `f` once to each character; string remains NUL-terminated.                                                                |
+| `ft_striteri(char *s, void (*f)(unsigned int, char *))`    | `s != NULL && f != NULL`; applies `f(index, &s[index])` to each character.                                                                                  |
+| `ft_strclr(char *s)`                                       | `s != NULL`; all characters up to and including the terminating NUL are cleared; resulting string is empty.                                                 |
+| `ft_strdel(char **as)`                                     | If `as != NULL && *as != NULL`, allocated string is freed and `*as == NULL`.                                                                                |
+| `ft_strnew(size_t size)`                                   | Returns newly allocated string containing `size` NUL characters plus terminating NUL; `result != NULL` on success.                                          |
+| `ft_strncat(...)`                                          | See above; destination must have capacity for appended characters and final NUL.                                                                            |
+| `ft_strlcat(char *dst, const char *src, size_t size)`      | `dst`/`src` valid; if space permits, concatenates with NUL termination; returns the length of the string it tried to create.                                |
+
+## Memory
+| Function                                                  | Assertions / contract                                                                                                                         |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ft_memset(void *s, int c, size_t n)`                     | `s` points to at least `n` writable bytes; first `n` bytes become `(unsigned char)c`; returns `s`.                                            |
+| `ft_memmove(void *dst, const void *src, size_t len)`      | Both regions contain at least `len` bytes; overlapping regions are supported; returns `dst`; source contents are preserved.                   |
+| `ft_memcpy(void *dst, const void *src, size_t n)`         | Both regions contain at least `n` bytes and do not overlap; returns `dst`; destination equals original source bytes.                          |
+| `ft_memccpy(void *dst, const void *src, int c, size_t n)` | Valid `n`-byte source/destination regions; copies until `c` is found or `n` bytes copied; returns pointer after copied `c`, otherwise `NULL`. |
+| `ft_memchr(const void *s, int c, size_t n)`               | `s` contains at least `n` readable bytes; returns first matching byte within range or `NULL`.                                                 |
+| `ft_memcmp(const void *s1, const void *s2, size_t n)`     | Both regions contain at least `n` readable bytes; compares first `n` bytes; returns `<0`, `0`, or `>0`.                                       |
+| `ft_bzero(void *s, size_t n)`                             | `s` points to at least `n` writable bytes; first `n` bytes become zero.                                                                       |
+| `ft_memalloc(size_t size)`                                | Returns a zero-initialized allocation of `size` bytes, or `NULL` on allocation failure.                                                       |
+| `ft_memdel(void **ap)`                                    | If `ap != NULL && *ap != NULL`, frees allocation and sets `*ap == NULL`.                                                                      |
+
+
+## Numeric
+| Function                   | Assertions / contract                                                                                                                               |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ft_nbrlen(int nbr)`       | Returns the number of characters required to represent `nbr` in decimal, including `-` for negative values.                                         |
+| `ft_absval(int n)`         | Returns absolute value of `n`; **note:** `INT_MIN` cannot be represented as a positive `int`, so behavior must be defined by implementation.        |
+| `ft_atoi(const char *str)` | `str != NULL`; parses optional whitespace/sign and decimal digits; returns corresponding integer subject to the implementation's overflow behavior. |
+| `ft_itoa(int n)`           | Returns newly allocated decimal representation of `n`, including sign where required; `NULL` on allocation failure.                                 |
+
+## Output
+| Function                                | Assertions / contract                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| `ft_putchar(char c)`                    | Writes exactly one character to standard output.                             |
+| `ft_putchar_fd(char c, int fd)`         | `fd` is a valid writable file descriptor; writes exactly one character.      |
+| `ft_putstr(char *str)`                  | `str != NULL`; writes the complete NUL-terminated string to standard output. |
+| `ft_putstr_fd(const char *str, int fd)` | `str != NULL`; `fd` is valid/writable; writes the complete string.           |
+| `ft_putendl(char *str)`                 | `str != NULL`; writes string followed by `'\n'` to stdout.                   |
+| `ft_putendl_fd(const char *s, int fd)`  | `s != NULL`; `fd` is valid/writable; writes string followed by newline.      |
+| `ft_putnbr(long long n)`                | Writes the decimal representation of `n` to stdout.                          |
+| `ft_putnbr_fd(long long n, int fd)`     | `fd` is valid/writable; writes decimal representation of `n`.                |
+
+assert(ft_isdigit('0'));
+assert(ft_isdigit('9'));
+assert(!ft_isdigit('a'));
+
+assert(ft_isalpha('A'));
+assert(ft_isalpha('z'));
+assert(!ft_isalpha('1'));
+
+assert(ft_isascii(0));
+assert(ft_isascii(127));
+assert(!ft_isascii(128));
+
+assert(ft_isprint(32));
+assert(ft_isprint(126));
+assert(!ft_isprint(31));
+
+assert(ft_tolower('A') == 'a');
+assert(ft_toupper('a') == 'A');
+
+assert(ft_strlen("") == 0);
+assert(ft_strcmp("abc", "abc") == 0);
+assert(ft_strcmp("abc", "abd") < 0);
+assert(ft_strcmp("abd", "abc") > 0);
+
+assert(ft_strstr("hello world", "world") != NULL);
+assert(ft_strstr("hello", "") != NULL);
+assert(ft_strstr("hello", "xyz") == NULL);
+
+assert(ft_memcmp("abc", "abc", 3) == 0);
+assert(ft_memcmp("abc", "abd", 3) < 0);
+
+assert(ft_atoi("42") == 42);
+assert(ft_atoi("-42") == -42);
+assert(ft_atoi("   +42") == 42);
+
+assert(ft_nbrlen(0) == 1);
+assert(ft_nbrlen(123) == 3);
+assert(ft_nbrlen(-123) == 4);
